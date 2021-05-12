@@ -1,0 +1,9 @@
+node_modules
+
+# FRONTEND
+.next
+build
+next-env.d.ts
+
+# BACKEND
+
