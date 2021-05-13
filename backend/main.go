@@ -16,19 +16,13 @@ import (
 func main() {
 	l := log.New(os.Stdout, "messages-api", log.LstdFlags)
 
-	// create handlers
-	mh := handlers.NewMessages(l)
-
-	// create a new gorilla mux and register the handlers
+	// create a new gorilla mux
 	r := mux.NewRouter()
-	getRouter := r.Methods(http.MethodGet).Subrouter()
-	getRouter.HandleFunc("/", mh.GetMessages)
 
-	postRouter := r.Methods(http.MethodPost).Subrouter()
-	postRouter.HandleFunc("/", mh.CreateMessage)
-
-	putRouter := r.Methods(http.MethodPut).Subrouter()
-	putRouter.HandleFunc("/{id:[0-9]+}", mh.UpdateMessage)
+	// initialize message handler and register the handlers to mux
+	mh := handlers.NewMessages(l)
+	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet)
+	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost)
 
 	// create and start server
 	s := &http.Server{
