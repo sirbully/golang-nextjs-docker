@@ -19,7 +19,7 @@ func main() {
 	// create handlers
 	mh := handlers.NewMessages(l)
 
-	// create a new serve mux and register the handlers
+	// create a new gorilla mux and register the handlers
 	r := mux.NewRouter()
 	getRouter := r.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", mh.GetMessages)
