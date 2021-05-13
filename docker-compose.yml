@@ -5,9 +5,13 @@ services:
     build:
       context: ./frontend
       image: Dockerfile
+    ports: 
+      - 3000:3000
     depends_on: 
       - backend
   backend:
     build:
       context: ./backend
       image: Dockerfile
+    ports: 
+      - 9090:9090
