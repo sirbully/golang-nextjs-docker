@@ -39,8 +39,8 @@ func GetMessages() Messages {
 // Create new message
 func CreateMessage(m *Message) {
 	m.ID = getNextID()
-	m.CreatedOn = time.Now().UTC().String()
-	m.UpdatedOn = time.Now().UTC().String()
+	m.CreatedOn = time.Now().String()
+	m.UpdatedOn = time.Now().String()
 	messages = append(messages, m)
 }
 
@@ -56,8 +56,8 @@ var messages = []*Message{
 	{
 		ID:        1,
 		Message:   "First message!",
-		CreatedOn: time.Now().UTC().String(),
-		UpdatedOn: time.Now().UTC().String(),
+		CreatedOn: time.Now().String(),
+		UpdatedOn: time.Now().String(),
 	},
 	{
 		ID:        2,

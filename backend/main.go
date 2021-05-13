@@ -9,23 +9,28 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/sirbully/notes/handlers"
+	"github.com/gorilla/mux"
+	"github.com/sirbully/golang-nextjs-docker/handlers"
 )
 
 func main() {
 	l := log.New(os.Stdout, "messages-api", log.LstdFlags)
 
-	// create handlers
-	mh := handlers.NewMessages(l)
+	// create a new gorilla mux
+	r := mux.NewRouter()
 
-	// create a new serve mux and register the handlers
-	sm := http.NewServeMux()
-	sm.Handle("/", mh)
+	// initialize message handler and register the handlers to mux
+	mh := handlers.NewMessages(l)
+	r.HandleFunc("/healthcheck", func(rw http.ResponseWriter, r *http.Request) {
+		rw.Write([]byte("Healthy"))
+	})
+	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet)
+	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost)
 
 	// create and start server
 	s := &http.Server{
 		Addr:     ":9090", // bind address
-		Handler:  sm,      // default handler
+		Handler:  r,       // default handler
 		ErrorLog: l,       // logger for the server
 	}
 	go func() {
