@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gorilla/mux"
 	"github.com/sirbully/notes/handlers"
 )
 
@@ -19,13 +20,20 @@ func main() {
 	mh := handlers.NewMessages(l)
 
 	// create a new serve mux and register the handlers
-	sm := http.NewServeMux()
-	sm.Handle("/", mh)
+	r := mux.NewRouter()
+	getRouter := r.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", mh.GetMessages)
+
+	postRouter := r.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", mh.CreateMessage)
+
+	putRouter := r.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", mh.UpdateMessage)
 
 	// create and start server
 	s := &http.Server{
 		Addr:     ":9090", // bind address
-		Handler:  sm,      // default handler
+		Handler:  r,       // default handler
 		ErrorLog: l,       // logger for the server
 	}
 	go func() {
