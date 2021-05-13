@@ -21,6 +21,9 @@ func main() {
 
 	// initialize message handler and register the handlers to mux
 	mh := handlers.NewMessages(l)
+	r.HandleFunc("/healthcheck", func(rw http.ResponseWriter, r *http.Request) {
+		rw.Write([]byte("Healthy"))
+	})
 	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet)
 	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost)
 
