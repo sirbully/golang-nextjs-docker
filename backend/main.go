@@ -49,6 +49,7 @@ func main() {
 	l.Println("Gracefully shutting down...", sig)
 
 	// gracefully shutdown server, waiting max 30 seconds for current operations to complete
-	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	tc, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	cancel()
 	s.Shutdown(tc)
 }
