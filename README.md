@@ -1,6 +1,8 @@
 ## Golang + Next + Docker
 
-This is a simple message board app. It solidifies my learning during the Build@Mercari training program.
+This is a simple message board app. It solidifies my learning during the Build@Mercari training program. This is a collaboration project, please feel free to fork and make PRs for the issues!
+
+(P.S. Not too sure if I'm doing this right!)
 
 **Prerequisites**
 - For demonstration
