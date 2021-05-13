@@ -10,8 +10,8 @@ RUN go mod download
 
 COPY . .
 
-EXPOSE 9090
-
 RUN go build
+
+EXPOSE 9090
 
 CMD ["./golang-nextjs-docker"]
