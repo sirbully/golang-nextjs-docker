@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/sirbully/notes/handlers"
+	"github.com/sirbully/golang-nextjs-docker/handlers"
 )
 
 func main() {

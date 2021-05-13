@@ -1,4 +1,4 @@
-module github.com/sirbully/notes
+module github.com/sirbully/golang-nextjs-docker
 
 go 1.16
 

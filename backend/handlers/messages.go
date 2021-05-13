@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/sirbully/notes/data"
+	"github.com/sirbully/golang-nextjs-docker/data"
 )
 
 // An http.Handler
