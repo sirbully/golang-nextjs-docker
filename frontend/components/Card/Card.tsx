@@ -1,5 +1,6 @@
 import React from "react"
-import { formatDistanceToNow } from 'date-fns'
+import { useMutation, useQueryClient } from "react-query"
+import { formatDistanceToNow } from "date-fns"
 import { Trash2 } from "react-feather"
 import { CircleBtn } from "../Button"
 import styles from "./card.module.scss"
@@ -11,7 +12,26 @@ export interface CardProps {
   children: React.ReactNode
 }
 
+const deleteMsg = async (id) => {
+  const response = await fetch(`http://localhost:9090/api/messages/${id}`, {
+    method: "delete",
+  })
+  if (!response.ok) throw Error("Cannot delete message!")
+}
+
 export const Card: React.FC<CardProps> = ({ id, name, date, children }) => {
+  const queryClient = useQueryClient()
+
+  const { mutateAsync: removeMsg } = useMutation(deleteMsg, {
+    onSuccess: () => queryClient.invalidateQueries("messages"),
+  })
+
+  const onClick = () => {
+    removeMsg(id)
+      .then(() => "deleted!")
+      .catch((err) => console.log(err))
+  }
+
   const colorPalettes = [
     { body: "bg-blue", text: "text-white" },
     { body: "bg-yellow", text: "text-black" },
@@ -45,6 +65,7 @@ export const Card: React.FC<CardProps> = ({ id, name, date, children }) => {
             icon={<Trash2 size={15} color="black" />}
             id={id}
             className="bg-white"
+            onClick={onClick}
           />
         </div>
       </div>
