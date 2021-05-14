@@ -13,10 +13,8 @@ const createMsg = async (msg) => {
       body: JSON.stringify(msg),
     }
   )
-
-  if (!response.ok) {
-    throw Error("Cannot create new message!")
-  }
+  if (!response.ok) throw Error("Cannot create new message!")
+  return response.json()
 }
 
 export const Form: React.FC = () => {

@@ -19,6 +19,7 @@ This is a simple message board app. It solidifies my learning during the Build@M
 
 **The tech stack**
 
+- Typescript
 - React (Next.js)
 - React Query
 - TailwindCSS
