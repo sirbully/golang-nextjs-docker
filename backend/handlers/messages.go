@@ -48,6 +48,7 @@ func (m *Messages) CreateMessage(rw http.ResponseWriter, r *http.Request) {
 	msg.ToJSON(rw)
 }
 
+// Update existing message by id
 func (m *Messages) UpdateMessage(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
@@ -80,6 +81,7 @@ func (m *Messages) UpdateMessage(rw http.ResponseWriter, r *http.Request) {
 	msg.ToJSON(rw)
 }
 
+// Delete message by id
 func (m *Messages) DeleteMessage(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])

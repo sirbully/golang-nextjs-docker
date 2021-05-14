@@ -53,7 +53,7 @@ func CreateMessage(m *Message) {
 	messages = append(messages, m)
 }
 
-// Update existing message
+// Update existing message by id
 func UpdateMessage(id int, m *Message) error {
 	_, pos, err := getMessage(id)
 	if err != nil {
@@ -67,6 +67,7 @@ func UpdateMessage(id int, m *Message) error {
 	return nil
 }
 
+// Delete message by id
 func DeleteMessage(id int) error {
 	_, pos, err := getMessage(id)
 	if err != nil {
