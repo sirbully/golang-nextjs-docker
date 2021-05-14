@@ -10,8 +10,6 @@ COPY . .
 
 ENV NODE_ENV=production
 
-ENV API_URL=http://backend/api/messages
-
 RUN npm run build
 
 EXPOSE 3000
