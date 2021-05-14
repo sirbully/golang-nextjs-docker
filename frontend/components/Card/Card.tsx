@@ -13,7 +13,7 @@ export interface CardProps {
 }
 
 const deleteMsg = async (id) => {
-  const response = await fetch(`http://localhost:9090/api/messages/${id}`, {
+  const response = await fetch(`${process.env.API_URL}/${id}`, {
     method: "delete",
   })
   if (!response.ok) throw Error("Cannot delete message!")
