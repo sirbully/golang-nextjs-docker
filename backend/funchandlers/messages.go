@@ -1,4 +1,4 @@
-package handlers
+package funchandlers
 
 import (
 	"log"
@@ -21,10 +21,6 @@ func NewMessages(l *log.Logger) *Messages {
 
 // Returns messages from in-memory data store
 func (m *Messages) GetMessages(rw http.ResponseWriter, r *http.Request) {
-	// CORS headers
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
-	rw.Header().Set("Content-Type", "application/json")
 	msgs := data.GetMessages()
 	err := msgs.ToJSON(rw)
 	if err != nil {
@@ -41,10 +37,6 @@ func (m *Messages) CreateMessage(rw http.ResponseWriter, r *http.Request) {
 	}
 	data.CreateMessage(msg)
 
-	// CORS headers
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
-	rw.Header().Set("Content-Type", "application/json")
 	msg.ToJSON(rw)
 }
 
@@ -74,10 +66,6 @@ func (m *Messages) UpdateMessage(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// CORS headers
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
-	rw.Header().Set("Content-Type", "application/json")
 	msg.ToJSON(rw)
 }
 
@@ -100,10 +88,5 @@ func (m *Messages) DeleteMessage(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// CORS headers
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
-	rw.Header().Set("Content-Type", "application/json")
-	msg := &data.Message{}
-	msg.ToJSON(rw)
+	rw.Write([]byte("{}\n"))
 }
