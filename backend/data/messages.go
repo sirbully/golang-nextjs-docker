@@ -67,6 +67,16 @@ func UpdateMessage(id int, m *Message) error {
 	return nil
 }
 
+func DeleteMessage(id int) error {
+	_, pos, err := getMessage(id)
+	if err != nil {
+		return err
+	}
+
+	removeMessage(pos)
+	return nil
+}
+
 // Generate ID from the previous latest ID in the messages list
 func getNextID() int {
 	msgs := messages[len(messages)-1]
@@ -83,11 +93,18 @@ func getMessage(id int) (*Message, int, error) {
 	return nil, -1, ErrMessageNotFound
 }
 
+// Delete message in temporary data store
+func removeMessage(index int) {
+	ret := make(Messages, 0)
+	ret = append(ret, messages[:index]...)
+	messages = append(ret, messages[index+1:]...)
+}
+
 var ErrMessageNotFound = fmt.Errorf("Message not found")
 
 // Hard-coded data store
 // TODO: persist data in a database
-var messages = []*Message{
+var messages = Messages{
 	{
 		ID:        1,
 		Name:      "Krizza",
