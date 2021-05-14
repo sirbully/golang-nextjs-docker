@@ -14,12 +14,14 @@ export const CircleBtn: React.FC<CircleBtnProps> = ({
   link,
   icon,
   className = "",
+  onClick,
   ...props
 }) => {
   const button = (
     <button
       type="button"
       className={[className, styles.circleBtn].join(" ")}
+      onClick={onClick}
       {...props}
     >
       {icon}
