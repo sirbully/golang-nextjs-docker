@@ -4,11 +4,13 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: [
+        "Montserrat",
         "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial",
         "sans-serif",
       ],
     },
     fontSize: {
+      xs: "0.75rem",
       sm: "14px",
       base: "16px",
       lg: "20px",
@@ -20,27 +22,33 @@ module.exports = {
       xbold: 800,
     },
     lineHeight: {
+      xs: "1rem",
       sm: "16px",
       base: "20px",
       lg: "24px",
     },
-    screens: {
-      sm: "500px",
-      md: "1005px",
-      lg: "1281px",
-      xl: "1440px",
-    },
     colors: {
-      transparent: 'transparent',
-      white: '#ffffff',
-      blue: '#1da1f2',
-      'blue-dark': '#1a91da',
+      transparent: "transparent",
+      white: "#ffffff",
+      blue: "#1947E5",
+      pink: "#FF89BB",
+      yellow: "#FFBD12",
+      green: "#00C6AE",
+      red: "#F95A2C",
       text: {
-        primary: '#0f1419',
-        secondary: '#5b7083',
+        primary: "#18191F",
+        secondary: "#474A57",
       },
     },
-    extend: {},
+    boxShadow: {
+      sm: "0 3px black",
+      DEFAULT: "0 8px black",
+    },
+    extend: {
+      fontSize: {
+        "3xl": "3rem",
+      },
+    },
   },
   variants: {
     extend: {},
