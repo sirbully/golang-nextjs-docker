@@ -24,8 +24,8 @@ func main() {
 	r.HandleFunc("/healthcheck", func(rw http.ResponseWriter, r *http.Request) {
 		rw.Write([]byte("Healthy"))
 	})
-	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet)
-	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost)
+	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet, http.MethodOptions)
+	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost, http.MethodOptions)
 
 	// create and start server
 	s := &http.Server{
