@@ -1,5 +1,6 @@
 import { Button, ButtonProps } from "./Button"
+import { CircleBtn, CircleBtnProps } from "./CircleBtn"
 
-export { Button }
+export { Button, CircleBtn }
 
-export type { ButtonProps }
+export type { ButtonProps, CircleBtnProps }
