@@ -1,0 +1,24 @@
+.tab {
+  @apply border-b-4 mt-5;
+}
+
+.tabBtns {
+  @apply flex flex-row;
+}
+
+.tabBtnLeft,
+.tabBtnRight {
+  @apply py-1 px-3 rounded-t-lg text-sm border-l border-r-2 border-t-2 focus:outline-none;
+}
+
+.tabBtnLeft {
+  @apply border-l-2 border-r;
+}
+
+.tabBtnRight {
+  @apply border-l border-r-2;
+}
+
+.tabContent {
+  @apply flex flex-col p-6;
+}
