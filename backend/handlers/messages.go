@@ -3,7 +3,9 @@ package handlers
 import (
 	"log"
 	"net/http"
+	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/sirbully/golang-nextjs-docker/data"
 )
 
@@ -44,4 +46,29 @@ func (m *Messages) CreateMessage(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Accept")
 	rw.Header().Set("Content-Type", "application/json")
 	msg.ToJSON(rw)
+}
+
+func (m *Messages) UpdateMessage(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(rw, "Cannot convert id in params to int", http.StatusBadRequest)
+		return
+	}
+
+	msg := &data.Message{}
+	err = msg.FromJSON(r.Body)
+	if err != nil {
+		http.Error(rw, "Unable to parse JSON", http.StatusInternalServerError)
+	}
+
+	err = data.UpdateMessage(id, msg)
+	if err == data.ErrMessageNotFound {
+		http.Error(rw, data.ErrMessageNotFound.Error(), http.StatusNotFound)
+		return
+	}
+	if err != nil {
+		http.Error(rw, data.ErrMessageNotFound.Error(), http.StatusInternalServerError)
+		return
+	}
 }
