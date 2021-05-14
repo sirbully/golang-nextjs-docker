@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"time"
 )
@@ -52,15 +53,59 @@ func CreateMessage(m *Message) {
 	messages = append(messages, m)
 }
 
+// Update existing message by id
+func UpdateMessage(id int, m *Message) error {
+	_, pos, err := getMessage(id)
+	if err != nil {
+		return err
+	}
+
+	m.ID = id
+	m.UpdatedOn = time.Now()
+	messages[pos] = m
+
+	return nil
+}
+
+// Delete message by id
+func DeleteMessage(id int) error {
+	_, pos, err := getMessage(id)
+	if err != nil {
+		return err
+	}
+
+	removeMessage(pos)
+	return nil
+}
+
 // Generate ID from the previous latest ID in the messages list
 func getNextID() int {
 	msgs := messages[len(messages)-1]
 	return msgs.ID + 1
 }
 
+// Get message by id
+func getMessage(id int) (*Message, int, error) {
+	for i, m := range messages {
+		if m.ID == id {
+			return m, i, nil
+		}
+	}
+	return nil, -1, ErrMessageNotFound
+}
+
+// Delete message in temporary data store
+func removeMessage(index int) {
+	ret := make(Messages, 0)
+	ret = append(ret, messages[:index]...)
+	messages = append(ret, messages[index+1:]...)
+}
+
+var ErrMessageNotFound = fmt.Errorf("Message not found")
+
 // Hard-coded data store
 // TODO: persist data in a database
-var messages = []*Message{
+var messages = Messages{
 	{
 		ID:        1,
 		Name:      "Krizza",

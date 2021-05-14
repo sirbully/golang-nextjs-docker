@@ -26,6 +26,8 @@ func main() {
 	})
 	r.HandleFunc("/api/messages", mh.GetMessages).Methods(http.MethodGet, http.MethodOptions)
 	r.HandleFunc("/api/messages", mh.CreateMessage).Methods(http.MethodPost, http.MethodOptions)
+	r.HandleFunc("/api/messages/{id:[0-9]+}", mh.UpdateMessage).Methods(http.MethodPut, http.MethodOptions)
+	r.HandleFunc("/api/messages/{id:[0-9]+}", mh.DeleteMessage).Methods(http.MethodDelete, http.MethodOptions)
 
 	// create and start server
 	s := &http.Server{
