@@ -1,0 +1,35 @@
+.container {
+  border-color: black;
+
+  @apply border-2 rounded-2xl p-4 shadow flex flex-col justify-between;
+}
+
+.message,
+.detail {
+  @apply mb-0 #{!important};
+}
+
+.detail {
+  @apply flex flex-row justify-between mb-0;
+
+  div {
+    @apply mb-0 #{!important};
+  }
+
+  .left {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+}
+
+.messageContent {
+  @apply font-bold text-lg mb-3;
+}
+
+.name {
+  @apply font-bold;
+}
+
+.action {
+  @apply mb-0 self-end;
+}
